@@ -12,22 +12,29 @@ const app = express();
 
 app.set('view engine', 'ejs');
 
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
 app.use(express.static("public"));
 
+app.route(['/', '/contact', '/about'])
+  .get(function(req, res) {
+      if (req.url == '/') {
+        res.render('home', {
+          DisplayContent: homeStartingContent
+        });
+      } else if (req.url == '/contact') {
+        res.render('contact', {
+          DisplayContent: contactContent
+        });
+      } else if (req.url == '/about') {
+        res.render('about', {
+          DisplayContent: aboutContent
+        });
+      }
+    })
 
-
-
-
-
-
-
-
-
-
-
-
-
-app.listen(3000, function() {
-  console.log("Server started on port 3000");
-});
+    app.listen(3000, function() {
+      console.log("Server started on port 3000");
+    });
