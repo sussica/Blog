@@ -5,8 +5,11 @@
 
 <% newPosts.forEach(function(post){ %>
 <h1><%= post.inputTitle %></h1>
-<p><%= post.inputPost.substring(0, 100)+'...' %><a href="/posts/ <%= post.inputTitle %>" > Read More</a></p>
-<% }) %>
+<% if(post.inputPost.length <= 100){ %>
+<p><%= post.inputPost %><a href="/posts/ <%= post.inputTitle %>"> Read More</a></p>
+<% }else{ %>
+<p><%= post.inputPost.substring(0, 100)+'...' %><a href="/posts/ <%= post.inputTitle %>"> Read More</a></p>
+<% }}) %>
 
 
 <%- include('partial/footer'); -%>
