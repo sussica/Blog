@@ -3,6 +3,10 @@
 <h1>Home</h1>
 <p><%= DisplayContent %></p>
 
+<% newPosts.forEach(function(post){ %>
+<h1><%= post.inputTitle %></h1>
+<p><%= post.inputPost %></p>
+<% }) %>
 
 
 <%- include('partial/footer'); -%>
