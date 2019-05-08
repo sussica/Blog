@@ -18,23 +18,40 @@ app.use(bodyParser.urlencoded({
 
 app.use(express.static("public"));
 
-app.route(['/', '/contact', '/about'])
-  .get(function(req, res) {
-      if (req.url == '/') {
-        res.render('home', {
-          DisplayContent: homeStartingContent
-        });
-      } else if (req.url == '/contact') {
-        res.render('contact', {
-          DisplayContent: contactContent
-        });
-      } else if (req.url == '/about') {
-        res.render('about', {
-          DisplayContent: aboutContent
-        });
-      }
-    })
+var posts = [];
 
-    app.listen(3000, function() {
-      console.log("Server started on port 3000");
-    });
+
+app.route(['/', '/contact', '/about', '/compose'])
+  .get(function(req, res) {
+    if (req.url == '/') {
+      res.render('home', {
+        DisplayContent: homeStartingContent
+      });
+      console.log(posts);
+    } else if (req.url == '/contact') {
+      res.render('contact', {
+        DisplayContent: contactContent
+      });
+    } else if (req.url == '/about') {
+      res.render('about', {
+        DisplayContent: aboutContent
+      });
+    } else if (req.url == '/compose') {
+      res.render('compose');
+    }
+  })
+
+
+
+app.post('/compose', function(req, res) {
+  var post = {
+    inputTitle: req.body.titleInput,
+    inputPost: req.body.postInput
+  }
+  posts.push(post);
+  res.redirect('/');
+})
+
+app.listen(3000, function() {
+  console.log("Server started on port 3000");
+});
